@@ -1,31 +1,25 @@
-import React, { useState, useEffect } from "react";
-import "./App.css";
-import Axios from "axios";
+import './App.css';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import ListBoardComponent from './components/ListBoardComponent';
+import HeaderComponent from './components/HeaderComponent';
+import FooterComponent from './components/FooterComponent';
+
 
 function App() {
-  const [user, setUser] = useState("");
-  useEffect(() => {
-    Axios.post("/api/users").then((response) => {
-      if(response.data) {
-        setUser(response.data);
-      }else {
-        alert("failed to");
-      }
-    });
-  }, []);
-  return (
-    <div className="App">
-      <header className="App-header">
-        <h1>{user.id}</h1>
-        <h1>{user.username}</h1>
-        <h1>{user.password}</h1>
-        <h1>{user.email}</h1>
-      </header>
-      <p className="App-intro">
-        to get started, edit <code>src/App.js</code> and save to reload.
-      </p>
-    </div>
-  );
+    return (
+        <div>
+            <Router>
+                <HeaderComponent/>
+                <div className="container">
+                    <Switch>
+                        <Route path = "/" exact component = {ListBoardComponent}/>
+                        <Route path = "/board" component = {ListBoardComponent}/>
+                    </Switch>
+                </div>
+                <FooterComponent/>
+            </Router>
+        </div>
+    );
 }
 
 export default App;
